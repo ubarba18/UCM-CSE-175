@@ -31,6 +31,7 @@ def uniform_cost_search(problem, repeat_check=False):
 
     frontier = Frontier(root, sort_by='g')
 
+    # initialize set
     reached = set()
     reached.add(root.loc)
 
