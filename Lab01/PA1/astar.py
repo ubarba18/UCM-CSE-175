@@ -44,7 +44,7 @@ def a_star_search(problem, h, repeat_check=False):
         for child in expanded:
             if repeat_check == True:
                 if child in reached:
-                    # if child is in frontier but with a higher cost than the one in frontier
+                    # if child is in frontier but with a higher cost than the one in frontier 
                     if child in frontier and child.cost < frontier.get(child).cost:
                         frontier.pop()
                         frontier.add(child)
