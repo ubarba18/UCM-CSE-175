@@ -27,7 +27,11 @@ class HeuristicFunction:
     def __init__(self, problem=None):
         self.problem = problem
         # PLACE ANY INITIALIZATION CODE HERE
+        self.problem.map
+        self.problem.start
+        self.goal = self.problem.goal
         
+
 
     def h_cost(self, loc=None):
         """An admissible heuristic function, estimating the cost from
@@ -38,5 +42,15 @@ class HeuristicFunction:
             return value
         else:
             # PLACE YOUR CODE FOR CALCULATING value OF loc HERE
+            #speed = dis/time, coordinates = distance, cost = time
+            #time = dis/speed
+            #cordinates = distance
+            #time = pathcost
+
+            #dis = self.problem.map.euclidean_distance(self.problem.start, self.goal)
+            #time = self.problem.path_cost(self.problem.start, self.problem.goal)
+            
+            #value = dis/time
+
             return value
 

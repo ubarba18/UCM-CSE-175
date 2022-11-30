@@ -35,7 +35,9 @@ def BFS(problem, repeat_check=False):
 
     # initializing the reached set
     reached = set()
-    reached.add(root.loc)
+
+    if repeat_check == True:
+        reached.add(root.loc)
 
     while not frontier.is_empty():
         # leaf node removed from the frontier
@@ -51,8 +53,9 @@ def BFS(problem, repeat_check=False):
         for child in expanded:
             # Discussed the repeat_check with Ethan Reidel
             if repeat_check == True:
-                if child not in reached:
-                    reached.add(child.loc)
+                child_loc = child.loc
+                if child_loc not in reached:
+                    reached.add(child_loc)
                     frontier.add(child)
             else:
                 frontier.add(child)

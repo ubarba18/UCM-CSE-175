@@ -7,11 +7,12 @@
 # Frontier.
 #
 # YOUR COMMENTS INCLUDING CITATIONS
-#
+# Implemented code from solutions for PA#0 given by professor David Noelle
 # YOUR NAME - THE DATE
 # Uriel Barba - 10/5/2022
 
 
+from operator import delitem
 from route import Node
 from route import Frontier
 
@@ -33,7 +34,9 @@ def uniform_cost_search(problem, repeat_check=False):
 
     # initialize set
     reached = set()
-    reached.add(root.loc)
+
+    if repeat_check == True:
+        reached.add(root.loc)
 
     while not frontier.is_empty():
         leaf = frontier.pop()
@@ -44,11 +47,12 @@ def uniform_cost_search(problem, repeat_check=False):
 
         for child in expanded:
             if repeat_check == True:
-                if child in reached:
-                    if child in frontier and child.cost < frontier.get(child).cost:
-                        frontier.pop()
+                child_loc = child.loc
+                if child_loc in reached:
+                    if child in frontier and frontier.__getitem__(child) > child.path_cost:
+                        frontier.__delitem__(child)
                         frontier.add(child)
-            else:
-                frontier.add(child)
-                reached.add(child.loc)
+                else:
+                    frontier.add(child)
+                    reached.add(child.loc)
     return None

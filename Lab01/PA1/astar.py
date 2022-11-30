@@ -7,7 +7,7 @@
 # uses heuristic function objects defined in the "heuristic.py" file.
 #
 # YOUR COMMENTS INCLUDING CITATIONS
-#
+# Implemented code from solutions for PA#0 given by professor David Noelle
 # YOUR NAME - THE DATE
 # Uriel Barba - 10/5/2022
 
@@ -32,20 +32,22 @@ def a_star_search(problem, h, repeat_check=False):
     frontier = Frontier(root, sort_by='f')
 
     reached = set()
-    reached.add(root.loc)
+
+    if repeat_check == True:
+        reached.add(root.loc)
 
     while not frontier.is_empty():
         leaf = frontier.pop()
         if problem.is_goal(leaf.loc):
             return leaf
 
-        expanded = leaf.expand(problem)
+        expanded = leaf.expand(problem, h)
 
         for child in expanded:
             if repeat_check == True:
-                if child in reached:
-                    # if child is in frontier but with a higher cost than the one in frontier 
-                    if child in frontier and child.cost < frontier.get(child).cost:
+                child_loc = child.loc
+                if child_loc in reached:
+                    if child in frontier and frontier.__getitem__(child) > child.path_cost + h(child.loc):
                         frontier.pop()
                         frontier.add(child)
             else:
