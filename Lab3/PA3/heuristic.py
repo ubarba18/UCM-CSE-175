@@ -22,7 +22,7 @@
 # PLACE ANY COMMENTS, INCLUDING ACKNOWLEDGMENTS, HERE
 #
 # PLACE YOUR NAME AND THE DATE HERE
-#Uriel Barba - 11/29/2022
+# Uriel Barba - 11/29/2022
 
 
 from parameters import *
@@ -55,11 +55,24 @@ def heuristic_value(state):
     val = 0.0
 
     # PLACE YOUR CODE HERE
-    if abs(state.w_loc) <= abs(state.e_loc):
-        val = -max_payoff
-    elif abs(state.w_loc) > abs(state.e_loc):
-        val = max_payoff/(abs(state.w_loc) - abs(state.e_loc)+ 3)
-    if state.current_turn == Player.east:
-        val = -val
-    
+    # if computer location is ahead
+    # w_loc = smaller, e_loc = bigger
+    # 100 = large gap safe, 50 = decent gap, 1 = tiny gap
+    # as gap increases, 
+    if abs(state.w_loc) < abs(state.e_loc):
+        difference = (abs(state.e_loc) - abs(state.w_loc))
+        val = (max_payoff - max_payoff/abs(difference) + 10)
+
+    # if loc are tied
+    if abs(state.w_loc) - abs(state.e_loc) == 0:
+        val = 0.0
+
+    # if computer location is behind opponent
+    # w_loc = bigger, e_loc = smaller
+    # -100 = riskier, -1 safer
+    # as gap increases, risk increases
+    if abs(state.w_loc) > abs(state.e_loc):
+        difference = abs(state.w_loc) - abs(state.e_loc)
+        val = -(max_payoff - max_payoff/abs(difference) + 10)
+
     return val
